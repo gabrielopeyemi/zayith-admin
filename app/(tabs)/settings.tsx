@@ -1,0 +1,42 @@
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import React from "react";
+import { InputField } from "@/components/InputField";
+import { router } from "expo-router";
+import { Button } from "@/components/Button";
+import Toast from "react-native-toast-message";
+
+const index = () => {
+  type AuthStackParamList = {
+    Login: undefined;
+    ForgotPassword: undefined;
+    ResetPassword: undefined;
+  };
+
+  const showToast = () => {
+    Toast.show({
+      type: "success",
+      text1: "Hello",
+      text2: "This is some something 👋",
+    });
+  };
+
+  return (
+    <View className="flex-1 bg-white p-6 justify-center">
+      <Text className="text-3xl font-bold text-primary mb-6 text-center">
+        Login to zayith
+      </Text>
+      <InputField
+        placeholder="Email"
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <InputField placeholder="Password" isPassword />
+      <Button title="Log In" onPress={showToast} />
+      <TouchableOpacity>
+        <Text className="text-primary text-center mt-4">Forgot Password?</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
+
+export default index;
