@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { API_URL } from "../../constants/config.ts";
+import { API_URL } from "../../constants/config";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import useToast from "../useToast";

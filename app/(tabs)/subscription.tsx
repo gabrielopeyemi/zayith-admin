@@ -22,19 +22,7 @@ const index = () => {
 
   return (
     <View className="flex-1 bg-white p-6 justify-center">
-      <Text className="text-3xl font-bold text-primary mb-6 text-center">
-        Login to zayith
-      </Text>
-      <InputField
-        placeholder="Email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <InputField placeholder="Password" isPassword />
-      <Button title="Log In" onPress={showToast} />
-      <TouchableOpacity>
-        <Text className="text-primary text-center mt-4">Forgot Password?</Text>
-      </TouchableOpacity>
+      <Text>Coming soon</Text>
     </View>
   );
 };
