@@ -1,8 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import { View, Text, FlatList, ActivityIndicator, Image, Dimensions } from 'react-native';
 import { Link } from 'expo-router';
-import productList from '@/api/products/productlistHook';
 import LoadingState from '@/components/loadingState';
+import ProductList from '@/api/products/productlistHook';
+
 
 interface Product {
   _id: string;
@@ -14,7 +15,7 @@ export default function Home() {
   const [hasMore, setHasMore] = useState<boolean>(true);
   const { height, width } = Dimensions.get('window');
   const [page, setPage] = useState<number>(1);
-  const { data: products, isLoading, isError, error, refetch } = productList(page, hasMore);
+  const { data: products, isLoading, isError, error, refetch } = ProductList(page, hasMore);
 
   const loadMore = useCallback(() => {
     if (!isLoading) {

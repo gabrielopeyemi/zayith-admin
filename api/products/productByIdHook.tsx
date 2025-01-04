@@ -24,7 +24,7 @@ export const getProduct = async (productId: any): Promise<any> => {
 return response.data;
 };
 
-export default function getProductById( productId:any){
+export default function GetProductById( productId:any){
     return useQuery({
       queryKey:['product',productId],
       queryFn:()=>getProduct(productId),

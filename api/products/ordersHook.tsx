@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { instance } from '../instance';
+// import { Instance } from '../instance';
 
 const API_URL = 'your-api-url'; // Replace with actual API URL
 

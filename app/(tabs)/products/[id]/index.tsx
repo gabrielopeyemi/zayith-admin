@@ -1,5 +1,6 @@
+import GetProductById from "@/api/products/productByIdHook";
 import getProductById from "@/api/products/productByIdHook";
-import Header from "@/components/header";
+// import Header from "@/components/header";
 import LoadingState from "@/components/loadingState";
 import { Base } from "@/constants/config";
 import { useGetSingleProducts } from "@/hooks/queries/useGetSingleProducts";
@@ -12,7 +13,7 @@ export default function Product() {
   const params = useLocalSearchParams();
   // const { product, loading } = useGetSingleProducts(params?.id || "");
 
-  const { data: product, isLoading, isError, error, refetch } = getProductById(params?.id || "");
+  const { data: product, isLoading, isError, error, refetch } = GetProductById(params?.id || "");
 
   if (isLoading) {
     return <LoadingState />;
