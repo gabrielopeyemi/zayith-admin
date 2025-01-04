@@ -1,3 +1,4 @@
+import getProductById from "@/api/products/productByIdHook";
 import Header from "@/components/header";
 import LoadingState from "@/components/loadingState";
 import { Base } from "@/constants/config";
@@ -9,9 +10,11 @@ import { View, Image, Text } from "react-native";
 
 export default function Product() {
   const params = useLocalSearchParams();
-  const { product, loading } = useGetSingleProducts(params?.id || "");
+  // const { product, loading } = useGetSingleProducts(params?.id || "");
 
-  if (loading) {
+  const { data: product, isLoading, isError, error, refetch } = getProductById(params?.id || "");
+
+  if (isLoading) {
     return <LoadingState />;
   }
 

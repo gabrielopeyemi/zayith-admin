@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL, storeId } from '@/constants/config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { instance } from '@/api/instance';
 
 /**
  * Custom hook to fetch orders from an API with authentication headers.
@@ -23,7 +24,7 @@ export const useGetOrders = () => {
           throw new Error('No authentication token found');
         }
 
-        const response = await axios.get(`${API_URL}/order-management?storeId=${storeId}`, {
+        const response = await instance.get(`/order-management?storeId=${storeId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json',

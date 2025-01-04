@@ -1,15 +1,15 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
-import { View, Text, FlatList, ActivityIndicator } from "react-native";
+import { TouchableOpacity, View, Text, FlatList, ActivityIndicator } from "react-native";
 import { router } from "expo-router";
-import { useGetOrders } from "@/hooks/queries/useGetOrders";
-import { OrderStatus } from "@/constants/config";
 import Entypo from "@expo/vector-icons/Entypo";
+import { OrderStatus, storeId } from "@/constants/config";
+import Orders from "@/api/products/ordersHook"; // Assuming this is where your query hook is
 
 export default function Order() {
-  const response = useGetOrders();
+  // Using the Orders hook with storeId to get orders
+  const { data: orders, isLoading, isError, error, refetch } = Orders(storeId);
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: any) => (
     <TouchableOpacity onPress={() => router.replace(`/orders/${item?._id}`)}>
       <View className="p-4 bg-white border border-gray-200 rounded-lg mb-2">
         <View className="flex flex-row gap-2">
@@ -54,7 +54,7 @@ export default function Order() {
     </Text>
   );
 
-  if (response.loading) {
+  if (isLoading) {
     return (
       <View className="flex-1 justify-center items-center">
         <ActivityIndicator size="large" color="green" />
@@ -63,11 +63,11 @@ export default function Order() {
     );
   }
 
-  if (response.error) {
+  if (isError) {
     return (
       <View className="flex-1 justify-center items-center">
         <Text className="text-red-600 text-lg text-center">
-          Error: {response.error.message}
+          Error: {error?.message}
         </Text>
       </View>
     );
@@ -76,7 +76,7 @@ export default function Order() {
   return (
     <View className="flex-1 bg-gray-100 p-4">
       <FlatList
-        data={response.orders}
+        data={orders || []} // Ensure it's not undefined or null
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         ListEmptyComponent={handleEmpty}
