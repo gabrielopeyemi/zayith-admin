@@ -14,11 +14,11 @@ import { Search, Menu, Download, Calendar } from "lucide-react";
 export default function Dashboard() {
   return (
     <SafeAreaView
-      className="flex-1 bg-white "
+      className="flex-1 bg-gray-100"
       style={{
         flex: 1,
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-        paddingHorizontal: 20,
+        paddingHorizontal: 8,
         paddingVertical: 12,
       }}
     >
@@ -28,8 +28,8 @@ export default function Dashboard() {
         showsVerticalScrollIndicator={false}
         className="flex-1 bg-gray-100"
       >
-        <View className="px-4 py-4 border-b-2 border-gray-200 bg-white">
-          <View className="flex-row items-center justify-between">
+        <View className="px-4 py-4 border-b-2 border-gray-200 bg-white w-full shadow-md">
+          <View className="flex-row items-center justify-between w-full">
             <View className="flex-row items-center space-x-2">
               <View className="w-8 h-8 bg-blue-600 rounded"></View>
               <Text className="text-2xl font-bold">BordUp™</Text>
@@ -96,7 +96,7 @@ export default function Dashboard() {
           />
           <Card 
             title="Total Payroll" 
-            value="$324,920.83" 
+            value="$324" 
             color="bg-emerald-600" 
           />
             </View>
