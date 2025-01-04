@@ -22,6 +22,7 @@ export default function RootLayout() {
 
   return (
     <Stack
+      initialRouteName="index"
       screenOptions={({ route }) => ({
         header: () => (
           <GlobalHeader

@@ -1,4 +1,4 @@
-import { Tabs } from "expo-router";
+import { Tabs, router } from "expo-router";
 import React from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
@@ -30,7 +30,9 @@ export default function TabLayout() {
                 color={color}
               />
             ),
+            
           }}
+          
         />
         <Tabs.Screen
           name="products"
@@ -44,6 +46,15 @@ export default function TabLayout() {
               />
             ),
           }}
+          listeners={{
+            tabPress: (e) => {
+              // Prevent the default tab behavior
+              e.preventDefault();
+  
+              // Reset Tab C to its initial screen
+              router.push("/products/index");
+            },
+          }}
         />
         <Tabs.Screen
           name="orders"
@@ -52,6 +63,15 @@ export default function TabLayout() {
             tabBarIcon: ({ color, focused }) => (
               <AntDesign name="rocket1" size={24} color={color} />
             ),
+          }}
+          listeners={{
+            tabPress: (e) => {
+              // Prevent the default tab behavior
+              e.preventDefault();
+  
+              // Reset Tab C to its initial screen
+              router.push("/orders/index");
+            },
           }}
         />
         <Tabs.Screen
