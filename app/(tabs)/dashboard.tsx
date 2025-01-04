@@ -19,7 +19,7 @@ export default function Dashboard() {
         flex: 1,
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         paddingHorizontal: 8,
-        paddingVertical: 20,
+        // paddingVertical: 20,
       }}
     >
       <StatusBar barStyle="dark-content" />
@@ -29,7 +29,7 @@ export default function Dashboard() {
       >
         <View className="px-4 py-4 border-b-2 border-gray-200 bg-white w-full shadow-md">
           <View className="flex-row items-center justify-between w-full">
-            <View className="flex-row items-center space-x-2">
+            <View className="flex-row items-center gap-x-2">
               <View className="w-8 h-8 bg-blue-600 rounded"></View>
               <Text className="text-2xl font-bold">BordUp™</Text>
             </View>
@@ -50,9 +50,9 @@ export default function Dashboard() {
             </View>
           </View>
         </View>
-        <ScrollView
+        <View
           className="flex-1 bg-gray-100"
-          showsVerticalScrollIndicator={false}
+          // showsVerticalScrollIndicator={false}
         >
           <View className="p-4">
             <View className="flex-row justify-between items-center mb-6">
@@ -91,7 +91,7 @@ export default function Dashboard() {
               <Card title="Total Payroll" value="$324" color="bg-emerald-600" />
             </View>
           </View>
-        </ScrollView>
+        </View>
       </ScrollView>
     </SafeAreaView>
   );
