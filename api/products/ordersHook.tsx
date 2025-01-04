@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { instance } from '../instance';
+import { Instance } from '../instance';
 
 const API_URL = 'your-api-url'; // Replace with actual API URL
 
@@ -15,7 +15,7 @@ export const getToken = async (storeId: string): Promise<any> => {
       throw new Error('No authentication token found');
     }
 
-    const response = await instance.get(`/order-management?storeId=${storeId}`, {
+    const response = await Instance.get(`/order-management?storeId=${storeId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchProducts } from './productService2';
 
-export default function productList(page: number, hasMore: boolean) {
+export default function ProductList(page: number, hasMore: boolean) {
   return useQuery({
     queryKey: ['productList', page],
     queryFn: () => fetchProducts(page),

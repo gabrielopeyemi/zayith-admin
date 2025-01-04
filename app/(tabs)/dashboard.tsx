@@ -9,7 +9,7 @@ import {
   StatusBar,
   Platform,
 } from "react-native";
-import { Search, Menu, Download, Calendar } from "lucide-react";
+import Feather from "react-native-vector-icons/Feather";
 
 export default function Dashboard() {
   return (
@@ -19,11 +19,10 @@ export default function Dashboard() {
         flex: 1,
         paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
         paddingHorizontal: 8,
-        paddingVertical: 12,
+        paddingVertical: 20,
       }}
     >
       <StatusBar barStyle="dark-content" />
-
       <ScrollView
         showsVerticalScrollIndicator={false}
         className="flex-1 bg-gray-100"
@@ -34,20 +33,19 @@ export default function Dashboard() {
               <View className="w-8 h-8 bg-blue-600 rounded"></View>
               <Text className="text-2xl font-bold">BordUp™</Text>
             </View>
-
-            <View className="flex-row space-x-4">
+            <View className="flex-row gap-x-4">
               <TouchableOpacity
-                className="w-10 h-10 bg-white rounded ring-2 ring-gray-200 items-center justify-center"
+                className="w-10 h-10 bg-white border border-gray-200 rounded-lg items-center justify-center"
                 accessibilityLabel="Search"
               >
-                <Search className="w-6 h-6 text-gray-600" />
+                <Feather name="search" size={24} color="#4B5563" />
               </TouchableOpacity>
 
               <TouchableOpacity
-                className="w-10 h-10 bg-white rounded ring-2 ring-gray-200 items-center justify-center"
+               className="w-10 h-10 bg-white border border-gray-200 rounded-lg items-center justify-center"
                 accessibilityLabel="Menu"
               >
-                <Menu className="w-6 h-6 text-gray-600" />
+                <Feather name="menu" size={24} color="#4B5563" />
               </TouchableOpacity>
             </View>
           </View>
@@ -69,36 +67,28 @@ export default function Dashboard() {
                 className="bg-blue-600 p-3 rounded-lg"
                 accessibilityLabel="Download Report"
               >
-                <Download className="w-5 h-5 text-white" />
+                <Feather name="download" size={20} color="white" />
               </TouchableOpacity>
             </View>
 
-            {/* Date Picker */}
             <View className="w-full items-center mb-6">
               <TouchableOpacity
                 className="flex-row items-center px-4 py-4 border border-gray-200 rounded-lg w-full"
                 accessibilityLabel="Select Date Range"
               >
-                <Calendar className="w-7 h-7 text-gray-600 mr-3" />
-                <Text className="text-lg">1 Jan 2024 - 31 Jan 2024</Text>
+                <Feather name="calendar" size={28} color="#4B5563" />
+                <Text className="text-lg ml-3">1 Jan 2024 - 31 Jan 2024</Text>
               </TouchableOpacity>
             </View>
-            <View className="space-y-6">
-            <Card 
-            title="Total Employees" 
-            value="104" 
-            color="bg-blue-600" 
-          />
-          <Card 
-            title="Job Applicants" 
-            value="1,839" 
-            color="bg-purple-600" 
-          />
-          <Card 
-            title="Total Payroll" 
-            value="$324" 
-            color="bg-emerald-600" 
-          />
+
+            <View className="gap-y-8">
+              <Card title="Total Employees" value="104" color="bg-blue-600" />
+              <Card
+                title="Job Applicants"
+                value="1,839"
+                color="bg-purple-600"
+              />
+              <Card title="Total Payroll" value="$324" color="bg-emerald-600" />
             </View>
           </View>
         </ScrollView>
@@ -106,7 +96,8 @@ export default function Dashboard() {
     </SafeAreaView>
   );
 }
-  function Card({ title, value, color }:{ title:any, value:any, color:any }){
+
+function Card({ title, value, color }: { title: any; value: any; color: any }) {
   return (
     <View className={`p-5 rounded-xl ${color}`}>
       <Text className="text-white text-lg opacity-80">{title}</Text>
