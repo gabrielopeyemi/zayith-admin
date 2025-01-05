@@ -14,18 +14,17 @@ import {
 const SettingsScreen = () => {
   const [userDetail, setUserDetail] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      try {
-        const userDetailJSON = await AsyncStorage.getItem("userDetail");
-        if (userDetailJSON) {
-          setUserDetail(JSON.parse(userDetailJSON));
-        }
-      } catch (error) {
-        console.error("Error fetching user details:", error);
+  const fetchUserDetails = async () => {
+    try {
+      const userDetailJSON = await AsyncStorage.getItem("userDetail");
+      if (userDetailJSON) {
+        setUserDetail(JSON.parse(userDetailJSON));
       }
-    };
-
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
+  };
+  useEffect(() => {
     fetchUserDetails();
   }, []);
 
@@ -34,7 +33,7 @@ const SettingsScreen = () => {
       {/* Profile Section */}
       <View style={styles.profileContainer}>
         <Image
-          source={{ uri: 'https://placehold.co/100x100' }}
+          source={{ uri: "https://placehold.co/100x100" }}
           style={styles.avatar}
         />
         <View style={styles.profileInfo}>
@@ -53,13 +52,11 @@ const SettingsScreen = () => {
         <Text style={styles.sectionTitle}>Inventories</Text>
         <Link href={`/settings/members`} style={styles.card}>
           <View style={styles.cardContent}>
-            
             <Text style={styles.cardText}>Members</Text>
           </View>
         </Link>
         <View style={styles.card}>
           <View style={styles.cardContent}>
-            
             <Text style={styles.cardText}>Support</Text>
           </View>
         </View>
@@ -68,7 +65,7 @@ const SettingsScreen = () => {
       {/* Preferences Section */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Preferences</Text>
-       
+
         <Link href={"/settings/change-password"} style={styles.card}>
           <View style={styles.cardContent}>
             {/* <Image

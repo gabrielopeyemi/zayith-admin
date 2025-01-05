@@ -155,7 +155,7 @@ const EditProductForm = () => {
         style={styles.container}
       >
         <ScrollView
-          style={{ ...styles.scrollView, marginTop: 60 }}
+          style={{ ...styles.scrollView }}
           keyboardShouldPersistTaps="handled"
         >
           {/* Product Name */}
@@ -371,7 +371,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   galleryInputContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     marginBottom: 15,
     justifyContent: "space-between",
@@ -396,10 +396,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#007bff",
     padding: 10,
     borderRadius: 5,
+    width: '100%',
   },
   addButtonText: {
     color: "#fff",
     fontWeight: "bold",
+    textAlign: 'center',
   },
   submitButton: {
     backgroundColor: Base.PRIMARY_COLOR,

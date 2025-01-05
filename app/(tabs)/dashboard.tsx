@@ -31,7 +31,7 @@ export default function Dashboard() {
           <View className="flex-row items-center justify-between w-full">
             <View className="flex-row items-center gap-x-2">
               <View className="w-8 h-8 bg-blue-600 rounded"></View>
-              <Text className="text-2xl font-bold">BordUp™</Text>
+              <Text className="text-2xl font-bold">Zayith™</Text>
             </View>
             <View className="flex-row gap-x-4">
               <TouchableOpacity
@@ -59,7 +59,7 @@ export default function Dashboard() {
               <View>
                 <Text className="text-3xl font-bold">Dashboard</Text>
                 <Text className="text-gray-500 text-base">
-                  Welcome back to BordUp™
+                  Welcome back to Zayith™
                 </Text>
               </View>
 
@@ -82,13 +82,13 @@ export default function Dashboard() {
             </View>
 
             <View className="gap-y-8">
-              <Card title="Total Employees" value="104" color="bg-blue-600" />
+              <Card title="Total Orders" value="104" color="bg-blue-600" />
               <Card
-                title="Job Applicants"
+                title="Subscription"
                 value="1,839"
                 color="bg-purple-600"
               />
-              <Card title="Total Payroll" value="$324" color="bg-emerald-600" />
+              <Card title="Customers" value="9324" color="bg-emerald-600" />
             </View>
           </View>
         </View>

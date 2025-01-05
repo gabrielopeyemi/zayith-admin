@@ -22,7 +22,7 @@ interface ApiResponse {
  *
  * @returns {Object} - { createProductFn, loading, error }
  */
-export const useUpdateStatus = (fetchOrder) => {
+export const useUpdateStatus = ({ fetchOrder }: { fetchOrder: any }) => {
   const { showSuccess, showError, showInfo } = useToast();
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +31,7 @@ export const useUpdateStatus = (fetchOrder) => {
     async (data: OrderData | any): Promise<ApiResponse | null> => {
       setLoading(true);
       setError(null);
-      // console.log({ FH3: data });
+      console.log({ FH3: data });
 
       try {
         const response = await updateStatus(data);
@@ -42,7 +42,7 @@ export const useUpdateStatus = (fetchOrder) => {
       } catch (err) {
         const errorMessage = handleError(err);
         setError(errorMessage);
-        showErrorAlert(errorMessage);
+        showError("Error!", errorMessage);
         return null; // Return null to indicate failure
       } finally {
         setLoading(false);
@@ -68,7 +68,7 @@ const updateStatus = async (data: OrderData): Promise<ApiResponse> => {
   }
 
   try {
-    const response = await axios.post<ApiResponse>(
+    const response = await axios.patch<ApiResponse>(
       `${API_URL}/order/status-update/${data.orderId}`,
       { status: data.status },
       {
@@ -108,6 +108,6 @@ const handleError = (err: unknown): string => {
  *
  * @param {string} message - The error message to display.
  */
-const showErrorAlert = (message: string) => {
-  Toast.success("Your item has been saved successfully.");
-};
+// const showErrorAlert = (message: string) => {
+//   Toast.success("Your item has been saved successfully.");
+// };

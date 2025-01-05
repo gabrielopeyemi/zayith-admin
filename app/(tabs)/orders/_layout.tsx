@@ -10,33 +10,17 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
 import React from "react";
-import GlobalHeader from "@/components/GlobalHeader";
+import GlobalHeader from "@/components/headers/GlobalHeader";
 // import LoginScreen from './LoginScreen';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require("../../../assets/fonts/SpaceMono-Regular.ttf"),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
   return (
     <Stack
-    initialRouteName="index"
+      initialRouteName="index"
       screenOptions={({ route }) => ({
         header: () => (
           <GlobalHeader
@@ -47,8 +31,8 @@ export default function RootLayout() {
       })}
     >
       {/* Use string for the name of the screen */}
-      <Stack.Screen name="index" />
-      <Stack.Screen name="[id]"  />
+      <Stack.Screen name="index" options={{ headerShown: false }}/>
+      <Stack.Screen name="[id]" options={{ headerShown: false }}/>
     </Stack>
   );
 }
