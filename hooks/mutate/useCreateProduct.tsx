@@ -40,7 +40,7 @@ export const useCreateProduct = () => {
       try {
         const response = await createProduct(data);
         showSuccess("Success!", response?.message);
-        router.replace(`/home/${response.data?._id}`);
+        router.replace(`/products/${response.data?._id}`);
         return response;
       } catch (err) {
         const errorMessage = handleError(err);

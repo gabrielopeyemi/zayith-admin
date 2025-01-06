@@ -1,13 +1,12 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "zayith admin",
+    "slug": "zayith-admin",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "scheme": "zayith admin",
     "userInterfaceStyle": "automatic",
-    // "entryPoint": "expo-router/entry",r
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -34,6 +33,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "c3142473-2824-4812-ab93-4111606acd6e"
+      }
     }
   }
 }
