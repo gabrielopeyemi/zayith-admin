@@ -7,8 +7,10 @@ import Toast from "react-native-toast-message";
 import { useLogin } from "@/hooks/queries/useLogin";
 
 const index = () => {
-  const [email, setEmail] = useState("famosipe2010@gmail.com");
-  const [password, setPassword] = useState("P@ssw0rd");
+  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("famosipe2010@gmail.com");
+  const [password, setPassword] = useState("");
+  // const [password, setPassword] = useState("P@ssw0rd");
   const { login, loading, error } = useLogin();
 
   const handleLogin = async () => {

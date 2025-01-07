@@ -10,8 +10,6 @@ import React, { useEffect } from "react";
 
 import "./../global.css";
 import Toast from "react-native-toast-message";
-
-import { useColorScheme } from "@/hooks/useColorScheme";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -21,7 +19,6 @@ const queryClient = new QueryClient();
 
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -40,10 +37,10 @@ export default function RootLayout() {
     <>
     <QueryClientProvider client={queryClient}>
       <Stack>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="+not-found" />
-        <Stack.Screen name="forgot-password" />
-        <Stack.Screen name="reset-password" />
+        <Stack.Screen name="index" options={{ headerShown: false }}  />
+        <Stack.Screen name="+not-found" options={{ headerShown: false }}  />
+        <Stack.Screen name="forgot-password" options={{ headerShown: false }}  />
+        <Stack.Screen name="reset-password" options={{ headerShown: false }}  />
         <Stack.Screen
           name="(tabs)"
           options={{

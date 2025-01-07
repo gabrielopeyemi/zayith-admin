@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
   Image,
   Dimensions,
+  ImageBackground,
 } from "react-native";
 import { Link } from "expo-router";
 import LoadingState from "@/components/loadingState";
@@ -30,10 +31,10 @@ export default function Home() {
   } = ProductList(page, hasMore);
 
   const loadMore = useCallback(() => {
-    if (!isLoading) {
+    if (!isLoading && hasMore) {
       setPage((prevPage) => prevPage + 1);
     }
-  }, [isLoading]);
+  }, [isLoading, hasMore]);
 
   const renderItem = useCallback(
     ({ item }: { item: Product }) => (
@@ -42,9 +43,9 @@ export default function Home() {
         className="bg-pink rounded-lg m-1 w-full pb-2 overflow-hidden"
       >
         <View className="flex-1">
-          <Image
-            className="self-center w-full h-[20vh]"
+          <ImageBackground
             source={{ uri: item.imageUrl }}
+            className="flex-1 justify-center items-center w-full h-40"
             resizeMode="cover"
           />
           <Text className="text-sm font-semibold text-gray-800 mt-3 px-2">

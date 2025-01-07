@@ -1,4 +1,4 @@
-import { OrderStatus } from "@/constants/config";
+import { OrderStatus, orderStatusData } from "@/constants/config";
 import formatDateToReadableString from "@/utils/function/formatDateToReadableString";
 import Entypo from "@expo/vector-icons/Entypo";
 import { Dropdown } from "react-native-element-dropdown";
@@ -16,6 +16,7 @@ import { ScrollView } from "react-native-reanimated/lib/typescript/Animated";
 import { Button } from "./Button";
 import { useUpdateStatus } from "@/hooks/mutate/useUpdateStatus";
 import VerticalTimeStepper from "./VerticalTimeStepper";
+import formatDate from "@/utils/function/formatDate";
 
 // Refactor the PaymentStatus enum
 export enum PaymentStatus {
@@ -31,19 +32,6 @@ export enum PaymentStatus {
   REFUNDED = "REFUNDED",
 }
 
-// Sample data for dropdown
-const data = [
-  { label: "IN_PROGRESS", value: "IN_PROGRESS" },
-  { label: "AWAITING_SHIPMENT", value: "AWAITING_SHIPMENT" },
-  { label: "IN_TRANSIT", value: "IN_TRANSIT" },
-  { label: "DELIVERED", value: "DELIVERED" },
-  { label: "CANCELED", value: "CANCELED" },
-  { label: "DISPUTED", value: "DISPUTED" },
-  { label: "SHIPPED", value: "SHIPPED" },
-  { label: "FAILED", value: "FAILED" },
-  { label: "EXPIRED", value: "EXPIRED" },
-  { label: "REFUNDED", value: "REFUNDED" },
-];
 
 export default function OrderDetailsTwo({ order, fetchOrder }) {
   const [value, setValue] = useState(null);
@@ -51,7 +39,7 @@ export default function OrderDetailsTwo({ order, fetchOrder }) {
   const { updateStatusFn, loading, error } = useUpdateStatus({ fetchOrder });
 
   // Function to determine available statuses
-  const getAvailableStatuses = (currentStatus: OrderStatus) => {
+  const getAvailableStatuses = (currentStatus: any) => {
     const excludedStatuses = {
       [OrderStatus.PAID]: [
         OrderStatus.PAID,
@@ -134,7 +122,7 @@ export default function OrderDetailsTwo({ order, fetchOrder }) {
     };
 
     const excluded = excludedStatuses[currentStatus] || [];
-    return data.filter((item) => !excluded.includes(item.value));
+    return orderStatusData.filter((item) => !excluded.includes(item.value));
   };
 
   // Filtered status based on current order status
@@ -148,7 +136,7 @@ export default function OrderDetailsTwo({ order, fetchOrder }) {
     }
     return null;
   };
-
+ 
   const handleEmpty = () => (
     <Text
       style={{
@@ -164,7 +152,7 @@ export default function OrderDetailsTwo({ order, fetchOrder }) {
 
   const handleUpdateOrder = () => {
     updateStatusFn({
-      orderId: order?.id,
+      orderId: order?._id,
       status: value,
     });
   };
@@ -174,11 +162,11 @@ export default function OrderDetailsTwo({ order, fetchOrder }) {
       {/* Order Details */}
       <View style={styles.headerSection}>
         <View className="flex justify-between w-full items-center mb-4">
-          <Text className="text-30 text-[#999]"># {order?.orderNumber}</Text>
-          <Text style={styles.date}>{order?.chosenDeliveryDate}</Text>
+          {/* <Text className="text-[30px] text-[#999]"># {order?.orderNumber}</Text> */}
+          <Text style={styles.date}>{formatDate(order?.chosenDeliveryDate)}</Text>
         </View>
         <View className="w-fit">
-          <VerticalTimeStepper steps={data} currentStatus={order?.status} />
+          <VerticalTimeStepper steps={orderStatusData} currentStatus={order?.status} />
         </View>
       </View>
 
@@ -231,7 +219,7 @@ export default function OrderDetailsTwo({ order, fetchOrder }) {
               />
             )}
           />
-          <Button title="Save" onPress={() => console.log(value)} />
+          <Button title="Save" onPress={handleUpdateOrder} isLoading={loading} />
         </View>
       </View>
 

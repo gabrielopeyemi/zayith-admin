@@ -12,24 +12,35 @@ import { router } from "expo-router";
 export const editProduct = async (data) => {
   const { productId, ...rest } = data;
 
+  console.log({ BEAN: data });
+  // return;
+
   try {
     const token = await AsyncStorage.getItem("token");
     if (!token) {
       throw new Error("No authentication token found");
     }
 
-    const response = await axios.patch(`${API_URL}/products/${productId}`, rest, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await axios.patch(
+      `${API_URL}/products/${productId}`,
+      { ...rest },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-    console.log("Product updated successfully", {'response.data':  response.data});
-    router.replace(`/home/${response?.data?._id}`);
+    console.log("Product updated successfully", {
+      "response.data": response.data,
+    });
+    router.replace(`/products/${response?.data?._id}`);
     return response.data;
   } catch (err: any) {
     console.error("Error updating product", err.message);
-    throw new Error(err.message || "An error occurred while updating the product.");
+    throw new Error(
+      err.message || "An error occurred while updating the product."
+    );
   }
 };

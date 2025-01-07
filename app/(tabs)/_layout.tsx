@@ -1,15 +1,13 @@
-import { Tabs } from "expo-router";
+import { Tabs, router } from "expo-router";
 import React from "react";
 
 import { TabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
-import { useColorScheme } from "@/hooks/useColorScheme";
 import Octicons from "@expo/vector-icons/Octicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <>
@@ -22,7 +20,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="dashboard"
           options={{
-            title: "dashboard",
+            title: "Dashboard",
             tabBarIcon: ({ color, focused }) => (
               <Octicons
                 name={focused ? "home" : "home"}
@@ -35,7 +33,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="products"
           options={{
-            title: "products",
+            title: "Products",
             tabBarIcon: ({ color, focused }) => (
               <MaterialIcons
                 name="production-quantity-limits"
@@ -57,7 +55,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="settings"
           options={{
-            title: "settings",
+            title: "Settings",
             tabBarIcon: ({ color, focused }) => (
               <AntDesign name="setting" size={24} color={color} />
             ),
@@ -66,7 +64,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="subscription"
           options={{
-            title: "subscription",
+            title: "Subscription",
             tabBarIcon: ({ color, focused }) => (
               <AntDesign name="user" size={24} color={color} />
             ),

@@ -58,7 +58,7 @@ const SettingsScreen = () => {
       <ActiveBar setActiveTab={setActiveTab} activeTab={activeTab} tabs={tabs}/>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        className="flex-1 bg-white mx-8 my-5"
+        className="flex-1 bg-white mx-8 my-5 mb-20"
       >
         <ProfileView/>
       </ScrollView>

@@ -18,6 +18,7 @@ import { useGetSingleProducts } from "@/hooks/queries/useGetSingleProducts";
 import { useLocalSearchParams } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Toast from "react-native-toast-message";
+import RNPickerSelect from "react-native-picker-select";
 
 // Define Types
 interface Product {
@@ -36,6 +37,7 @@ interface FormData {
   description: string;
   mainImage: string;
   gallery: string[];
+  inStock: boolean;
 }
 
 const EditProductForm = () => {
@@ -50,6 +52,7 @@ const EditProductForm = () => {
     description: "",
     mainImage: "",
     gallery: [],
+    inStock: true,
   });
   const [descriptionIncludes, setDescriptionIncludes] = useState<string[]>([]);
   const [currentDescriptionInclude, setCurrentDescriptionInclude] =
@@ -67,6 +70,7 @@ const EditProductForm = () => {
         description: product?.description || "",
         mainImage: product?.imageUrl || "",
         gallery: product?.gallery || [],
+        inStock: product.inStock,
       });
       setDescriptionIncludes(product.descriptionIncludes);
     }
@@ -93,8 +97,15 @@ const EditProductForm = () => {
   // Form submission handler
   const handleSubmit = async () => {
     setIsLoading(true);
-    const { productName, price, salesPrice, description, mainImage, gallery } =
-      formData;
+    const {
+      productName,
+      price,
+      salesPrice,
+      description,
+      mainImage,
+      gallery,
+      inStock,
+    } = formData;
 
     const updatedData = {
       productId: product?._id,
@@ -105,7 +116,10 @@ const EditProductForm = () => {
       gallery,
       imageUrl: mainImage,
       descriptionIncludes,
+      inStock,
     };
+
+    console.log({ updatedData });
 
     try {
       await editProduct(updatedData);
@@ -120,6 +134,7 @@ const EditProductForm = () => {
         description: "",
         mainImage: "",
         gallery: [],
+        inStock: true,
       });
       setDescriptionIncludes([]);
     } catch (error: any) {
@@ -155,7 +170,7 @@ const EditProductForm = () => {
         style={styles.container}
       >
         <ScrollView
-          style={{ ...styles.scrollView, marginTop: 60 }}
+          style={{ ...styles.scrollView }}
           keyboardShouldPersistTaps="handled"
         >
           {/* Product Name */}
@@ -184,6 +199,21 @@ const EditProductForm = () => {
             multiline
             textArea
           />
+
+          {/* Instock */}
+          <View className="py-4">
+            <Text style={{ fontSize: 16, marginBottom: 5, color: "#555" }}>
+              In stock
+            </Text>
+            <RNPickerSelect
+              value={formData.inStock}
+              onValueChange={(text) => handleInputChange("inStock", text)}
+              items={[
+                { label: "In stock", value: true },
+                { label: "Out of stock", value: false },
+              ]}
+            />
+          </View>
 
           {/* Main Image */}
           <InputField
@@ -254,7 +284,7 @@ const EditProductForm = () => {
               <Text style={styles.addButtonText}>Add</Text>
             </TouchableOpacity>
           </View>
-          <View >
+          <View>
             {descriptionIncludes?.map((item, index) => (
               <View
                 style={{
@@ -371,7 +401,7 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
   galleryInputContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     marginBottom: 15,
     justifyContent: "space-between",
@@ -396,10 +426,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#007bff",
     padding: 10,
     borderRadius: 5,
+    width: "100%",
   },
   addButtonText: {
     color: "#fff",
     fontWeight: "bold",
+    textAlign: "center",
   },
   submitButton: {
     backgroundColor: Base.PRIMARY_COLOR,

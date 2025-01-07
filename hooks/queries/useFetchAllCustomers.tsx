@@ -16,26 +16,26 @@ export const useFetchAllCustomers = (
   const [limit, setLimit] = useState(initialLimit);
   const [page, setPage] = useState(initialPage);
 
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response: any = await axios.get(
+        `${API_URL}/customer-management`,
+        {
+          params: { status, limit, page, storeId },
+        }
+      );
+      setData(response.data);
+    } catch (err: any) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const response: any = await axios.get(
-          `${API_URL}/customer-management`,
-          {
-            params: { status, limit, page, storeId },
-          }
-        );
-        setData(response.data);
-      } catch (err: any) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     if (storeId) {
       fetchData();
     }

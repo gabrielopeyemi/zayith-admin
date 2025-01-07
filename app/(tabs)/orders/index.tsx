@@ -1,9 +1,17 @@
 import React from "react";
-import { TouchableOpacity, View, Text, FlatList, ActivityIndicator } from "react-native";
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { router } from "expo-router";
 import Entypo from "@expo/vector-icons/Entypo";
-import { OrderStatus, storeId } from "@/constants/config";
+import { OrderStatus, orderStatusData, storeId } from "@/constants/config";
 import Orders from "@/api/products/ordersHook"; // Assuming this is where your query hook is
+import OrderStatusDiv from "@/components/renderOrderStatus";
+import OrderHeader from "@/components/headers/OrderHeader";
 
 export default function Order() {
   // Using the Orders hook with storeId to get orders
@@ -11,39 +19,18 @@ export default function Order() {
 
   const renderItem = ({ item }: any) => (
     <TouchableOpacity onPress={() => router.replace(`/orders/${item?._id}`)}>
-      <View className="p-4 bg-white border border-gray-200 rounded-lg mb-2">
-        <View className="flex flex-row gap-2">
-          <Text className="text-gray-700">{item?.customer?.firstName}</Text>
-          <Text className="text-gray-700">{item?.customer?.lastName}</Text>
+      <View className="p-4 bg-white border border-gray-200 rounded-lg mb-2 flex flex-row justify-between items-start">
+        <View>
+          <View className="flex flex-row gap-2">
+            <Text className="text-gray-700">{item?.customer?.firstName}</Text>
+            <Text className="text-gray-700">{item?.customer?.lastName}</Text>
+          </View>
+          <Text className="mt-2 font-semibold text-lg text-gray-800">
+            NGN{item?.totalAmount}
+          </Text>
         </View>
-        <Text className="mt-2 font-semibold text-lg text-gray-800">
-          NGN{item?.totalAmount}
-        </Text>
 
-        <View className="mt-2 flex justify-end">
-          {item?.status === OrderStatus.ORDER_PLACED && (
-            <Text className="bg-yellow-600 text-white px-2 py-1 rounded text-xs flex flex-row items-center gap-1">
-              <Entypo name="unread" size={10} color="white" />
-              NOT PAID
-            </Text>
-          )}
-          {(item?.status === OrderStatus.USER_HAS_PAID ||
-            item?.status === OrderStatus.ORDER_READY_FOR_PICKUP) && (
-            <Text className="bg-green-600 text-white px-2 py-1 rounded text-xs">
-              PAID
-            </Text>
-          )}
-          {item?.status === OrderStatus.ORDER_IN_TRANSIT && (
-            <Text className="bg-green-600 text-white px-2 py-1 rounded text-xs">
-              Has Delivered
-            </Text>
-          )}
-          {item?.status === OrderStatus.ORDER_IN_TRANSIT && (
-            <Text className="bg-red-600 text-white px-2 py-1 rounded text-xs">
-              Has Returned
-            </Text>
-          )}
-        </View>
+        <OrderStatusDiv status={item?.status} />
       </View>
     </TouchableOpacity>
   );
@@ -74,19 +61,22 @@ export default function Order() {
   }
 
   return (
-    <View className="flex-1 bg-gray-100 p-4">
-      <FlatList
-        data={orders || []} // Ensure it's not undefined or null
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        ListEmptyComponent={handleEmpty}
-        ItemSeparatorComponent={() => <View className="my-2" />}
-        ListFooterComponent={() => (
-          <View className="items-center mt-4">
-            <Text className="text-gray-600">List ended</Text>
-          </View>
-        )}
-      />
+    <View className="flex-1">
+      <OrderHeader />
+      <View className="flex-1 bg-gray-100 p-4">
+        <FlatList
+          data={orders || []} // Ensure it's not undefined or null
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          ListEmptyComponent={handleEmpty}
+          ItemSeparatorComponent={() => <View className="my-2" />}
+          ListFooterComponent={() => (
+            <View className="items-center mt-4">
+              <Text className="text-gray-600">List ended</Text>
+            </View>
+          )}
+        />
+      </View>
     </View>
   );
 }

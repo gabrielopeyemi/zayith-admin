@@ -3,7 +3,7 @@ import { useCreateProduct } from "@/hooks/mutate/useCreateProduct";
 import { editProduct } from "@/hooks/mutate/useEditSingleProducts";
 import { useGetSingleProducts } from "@/hooks/queries/useGetSingleProducts";
 import { useLocalSearchParams } from "expo-router";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import {
   StyleSheet,
@@ -107,7 +107,7 @@ const CreateProductForm = () => {
 
   return (
     <ScrollView
-      style={{ ...styles.scrollView, marginTop: 50 }}
+      style={{ ...styles.scrollView }}
       keyboardShouldPersistTaps="handled"
     >
       <Text style={styles.label}>Product Name</Text>
@@ -230,7 +230,7 @@ const CreateProductForm = () => {
             key={item + index}
           >
             <TouchableOpacity
-              style={{ right: 6, position: "absolute", zIndex: 20 }}
+              style={{ right: 6, position: "absolute", zIndex: 20, width: '100%' }}
               onPress={() => handleRemoveDescriptionInclude(item)}
             >
               <AntDesign name="close" size={14} color="black" />
@@ -261,6 +261,7 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
     padding: 20,
+    paddingBottom: 30
   },
   header: {
     fontSize: 24,
@@ -307,7 +308,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   galleryInputContainer: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     marginBottom: 15,
     justifyContent: "space-between",
@@ -317,11 +318,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#007bff",
     padding: 10,
     borderRadius: 5,
+    width: '100%',
+    textAlign: 'center'
   },
   addButtonText: {
     color: "#fff",
     fontSize: 16,
     fontWeight: "bold",
+    textAlign: 'center'
   },
   submitButton: {
     backgroundColor: Base.PRIMARY_COLOR,
@@ -329,6 +333,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     alignItems: "center",
     marginTop: 15,
+    paddingBottom: 15,
   },
   buttonText: {
     color: "#fff",

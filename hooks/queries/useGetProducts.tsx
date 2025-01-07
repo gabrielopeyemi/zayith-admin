@@ -23,34 +23,33 @@ export const useGetProducts = (): UseGetProductsResult => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      setError(null);
+  const fetchProducts = async () => {
+    setLoading(true);
+    setError(null);
 
-      try {
-        const token = await AsyncStorage.getItem('token');
-        if (!token) {
-          throw new Error('No authentication token found');
-        }
-
-        const response = await axios.get<Product[]>(`${API_URL}/products/get-all-product/${storeId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        });
-
-        setProducts(response.data);
-      } catch (err) {
-        console.log({err})
-        // const axiosError = err as AxiosError;
-        setError('An error occurred while fetching products.');
-      } finally {
-        setLoading(false);
+    try {
+      const token = await AsyncStorage.getItem('token');
+      if (!token) {
+        throw new Error('No authentication token found');
       }
-    };
 
+      const response = await axios.get<Product[]>(`${API_URL}/products/get-all-product/${storeId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      setProducts(response.data);
+    } catch (err) {
+      console.log({err})
+      // const axiosError = err as AxiosError;
+      setError('An error occurred while fetching products.');
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     fetchProducts();
   }, []);
 

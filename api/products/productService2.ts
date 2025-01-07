@@ -25,7 +25,7 @@ import { API_URL } from '@/constants/config';
 // };
 
 export const fetchProducts = async (page:any) => {
-  const limit=40
+  const limit=100
   const response = await instance.get(`/products/get-all-product?page=${page}&limit=${limit}`);
   return response.data;
 };

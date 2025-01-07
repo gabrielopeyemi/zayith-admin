@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { API_URL } from '@/constants/config';
+import { useState, ect, useEffect } from "react";
+import axios from "axios";
+import { API_URL } from "@/constants/config";
 
 // Define the User type based on your API response structure
 interface User {
@@ -28,22 +28,22 @@ const useFetchAllUsers = (role?: string | null) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const data = await fetchAllUsers(role);
+      setUsers(data);
+    } catch (err: unknown) {
+      console.log(err);
+      setError("An unknown error occurred");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const data = await fetchAllUsers(role);
-        setUsers(data);
-      } catch (err: unknown) {
-        console.log(err) 
-        setError('An unknown error occurred');
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, [role]); // Re-fetch when the role changes
 
