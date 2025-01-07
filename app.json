@@ -7,7 +7,6 @@
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
-    // "entryPoint": "expo-router/entry",r
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
@@ -34,6 +33,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "6fea01a9-ab4f-4e21-9dbf-696aa32adefd"
+      }
     }
   }
 }

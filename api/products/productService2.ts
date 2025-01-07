@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { instance } from '../instance';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '@/constants/config';
-const [hasMore, setHasMore] = useState<boolean>(true);
+// const [hasMore, setHasMore] = useState<boolean>(true);
 
 
 

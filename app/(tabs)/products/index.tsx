@@ -1,9 +1,15 @@
-import React, { useState, useCallback } from 'react';
-import { View, Text, FlatList, ActivityIndicator, Image, Dimensions } from 'react-native';
-import { Link } from 'expo-router';
-import LoadingState from '@/components/loadingState';
-import ProductList from '@/api/products/productlistHook';
-
+import React, { useState, useCallback } from "react";
+import {
+  View,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  Image,
+  Dimensions,
+} from "react-native";
+import { Link } from "expo-router";
+import LoadingState from "@/components/loadingState";
+import ProductList from "@/api/products/productlistHook";
 
 interface Product {
   _id: string;
@@ -13,9 +19,15 @@ interface Product {
 
 export default function Home() {
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const { height, width } = Dimensions.get('window');
+  const { height, width } = Dimensions.get("window");
   const [page, setPage] = useState<number>(1);
-  const { data: products, isLoading, isError, error, refetch } = ProductList(page, hasMore);
+  const {
+    data: products,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = ProductList(page, hasMore);
 
   const loadMore = useCallback(() => {
     if (!isLoading) {
@@ -26,7 +38,7 @@ export default function Home() {
   const renderItem = useCallback(
     ({ item }: { item: Product }) => (
       <Link
-        href={{ pathname: '/products/[id]', params: { id: item._id } }}
+        href={{ pathname: "/products/[id]", params: { id: item._id } }}
         className="bg-pink rounded-lg m-1 w-full pb-2 overflow-hidden"
       >
         <View className="flex-1">
@@ -45,7 +57,11 @@ export default function Home() {
   );
 
   const handleEmpty = useCallback(
-    () => <Text className="text-center text-gray-500 text-lg mt-5">No data available. Please try again later.</Text>,
+    () => (
+      <Text className="text-center text-gray-500 text-lg mt-5">
+        No data available. Please try again later.
+      </Text>
+    ),
     []
   );
 
@@ -67,7 +83,7 @@ export default function Home() {
     return (
       <View className="flex-1 justify-center items-center">
         <Text className="text-lg text-red-500 text-center">
-          Error: {error?.message || 'An error occurred'}
+          Error: {error?.message || "An error occurred"}
         </Text>
       </View>
     );
@@ -80,7 +96,7 @@ export default function Home() {
         renderItem={renderItem}
         keyExtractor={(item) => item._id}
         numColumns={2}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
+        columnWrapperStyle={{ justifyContent: "space-between" }}
         ListFooterComponent={renderFooter}
         onEndReachedThreshold={0.5}
       />
