@@ -4,14 +4,14 @@ import {
   Text,
   FlatList,
   ActivityIndicator,
-  ImageBackground,
+  Image,
   Dimensions,
-  RefreshControl,
+  ImageBackground,
+  ScrollView,
 } from "react-native";
 import { Link } from "expo-router";
 import LoadingState from "@/components/loadingState";
 import ProductList from "@/api/products/productlistHook";
-import ProductHeader from "@/components/headers/ProductHeader";
 
 interface Product {
   _id: string;
@@ -21,7 +21,6 @@ interface Product {
 
 export default function Home() {
   const [hasMore, setHasMore] = useState<boolean>(true);
-  const [refreshing, setRefreshing] = useState<boolean>(false); // For pull-to-refresh
   const { height, width } = Dimensions.get("window");
   const [page, setPage] = useState<number>(1);
   const {
@@ -31,20 +30,6 @@ export default function Home() {
     error,
     refetch,
   } = ProductList(page, hasMore);
-
-  // Refresh function for pull-to-refresh
-  const handleRefresh = useCallback(async () => {
-    setRefreshing(true);
-    try {
-      setPage(1); // Reset to the first page
-      await refetch(); // Re-fetch data
-      setHasMore(true); // Reset the 'hasMore' state
-    } catch (error) {
-      console.error("Error refreshing data:", error);
-    } finally {
-      setRefreshing(false);
-    }
-  }, [refetch]);
 
   const loadMore = useCallback(() => {
     if (!isLoading && hasMore) {
@@ -56,8 +41,7 @@ export default function Home() {
     ({ item }: { item: Product }) => (
       <Link
         href={{ pathname: "/products/[id]", params: { id: item._id } }}
-        className="bg-pink rounded-lg m-1 flex-1 pb-2 overflow-hidden"
-        style={{ marginHorizontal: 5 }}
+        className="bg-pink rounded-lg m-1 w-full pb-2 overflow-hidden"
       >
         <View className="flex-1">
           <ImageBackground
@@ -108,29 +92,37 @@ export default function Home() {
   }
 
   return (
-    <View className="flex-1">
-      <ProductHeader  />
-      <View className="flex-1 bg-gray-100 px-5">
-        <FlatList
-          data={products}
-          renderItem={renderItem}
-          keyExtractor={(item) => item._id}
-          numColumns={2}
-          columnWrapperStyle={{ justifyContent: "space-between" }}
-          ListEmptyComponent={handleEmpty}
-          ListFooterComponent={renderFooter}
-          // onEndReached={loadMore}
-          onEndReachedThreshold={0.5}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={handleRefresh} // Pull-to-refresh handler
-              colors={["#6200EE"]} // Android indicator color
-              tintColor="#6200EE" // iOS indicator color
-            />
-          }
-        />
+    <ScrollView className="flex-1 bg-gray-100 px-5">
+      {/* <FlatList
+        data={products}
+        renderItem={renderItem}
+        keyExtractor={(item) => item._id}
+        numColumns={2}
+        columnWrapperStyle={{ justifyContent: "space-between" }}
+        ListFooterComponent={renderFooter}
+        onEndReachedThreshold={0.5}
+      /> */}
+      <View className="grid md:grid-cols-3 gap-2 my-4">
+        {products.map((product: any) => (
+          <Link
+            href={{ pathname: "/products/[id]", params: { id: product._id } }}
+            className="border p-2 rounded-sm border-[#999]"
+            key={product?._id}
+          >
+            <ImageBackground
+              source={{ uri: product?.imageUrl }}
+              resizeMode="cover"
+              style={{
+                width: "100%",
+                height: 300,
+              }}
+            ></ImageBackground>
+            <Text className="text-[14px] font-semibold my-2">
+              {product.name}
+            </Text>
+          </Link>
+        ))}
       </View>
-    </View>
+    </ScrollView>
   );
 }

@@ -1,4 +1,6 @@
-import React from "react";
+import DashboardThree from "@/components/Dashboard/Dashboardthree";
+import Order from "@/components/Dashboard/Order";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,9 +11,39 @@ import {
   StatusBar,
   Platform,
 } from "react-native";
+import Icon from "react-native-vector-icons/Feather";
 import Feather from "react-native-vector-icons/Feather";
+import Subscriptions from "@/components/Dashboard/Subscriptions";
+import Navbar from "@/components/NavBar/Navbar";
+import ActiveBar from "@/components/ActiveBar/ActiveBar";
 
 export default function Dashboard() {
+  // const tabs = [
+  //   { id: 'profile', label: 'Profile' },
+  //   { id: 'password', label: 'Change password' },
+  //   { id: 'specializations', label: 'Specializations' },
+  //   { id: 'permissions', label: 'User roles and permissions' },
+  // ];
+
+  const tabs = [
+    { id: "Order", label: "Order" },
+    { id: "Subscriptions", label: "Subscriptions" },
+    { id: "Customers", label: "Customers" },
+  ];
+  const [activeTab, setActiveTab] = useState("Order");
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "Order":
+        return <Order />;
+      case "Subscriptions":
+        return <Subscriptions />;
+      case "Customers":
+        return <DashboardThree />;
+      default:
+        return <Order />;
+    }
+  };
   return (
     <SafeAreaView
       className="flex-1 bg-gray-100"
@@ -27,81 +59,14 @@ export default function Dashboard() {
         showsVerticalScrollIndicator={false}
         className="flex-1 bg-gray-100"
       >
-        <View className="px-4 py-4 border-b-2 border-gray-200 bg-white w-full shadow-md">
-          <View className="flex-row items-center justify-between w-full">
-            <View className="flex-row items-center gap-x-2">
-              <View className="w-8 h-8 bg-blue-600 rounded"></View>
-              <Text className="text-2xl font-bold">Zayith™</Text>
-            </View>
-            <View className="flex-row gap-x-4">
-              <TouchableOpacity
-                className="w-10 h-10 bg-white border border-gray-200 rounded-lg items-center justify-center"
-                accessibilityLabel="Search"
-              >
-                <Feather name="search" size={24} color="#4B5563" />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-               className="w-10 h-10 bg-white border border-gray-200 rounded-lg items-center justify-center"
-                accessibilityLabel="Menu"
-              >
-                <Feather name="menu" size={24} color="#4B5563" />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-        <View
-          className="flex-1 bg-gray-100"
-          // showsVerticalScrollIndicator={false}
-        >
-          <View className="p-4">
-            <View className="flex-row justify-between items-center mb-6">
-              <View>
-                <Text className="text-3xl font-bold">Dashboard</Text>
-                <Text className="text-gray-500 text-base">
-                  Welcome back to Zayith™
-                </Text>
-              </View>
-
-              <TouchableOpacity
-                className="bg-blue-600 p-3 rounded-lg"
-                accessibilityLabel="Download Report"
-              >
-                <Feather name="download" size={20} color="white" />
-              </TouchableOpacity>
-            </View>
-
-            <View className="w-full items-center mb-6">
-              <TouchableOpacity
-                className="flex-row items-center px-4 py-4 border border-gray-200 rounded-lg w-full"
-                accessibilityLabel="Select Date Range"
-              >
-                <Feather name="calendar" size={28} color="#4B5563" />
-                <Text className="text-lg ml-3">1 Jan 2024 - 31 Jan 2024</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View className="gap-y-8">
-              <Card title="Total Orders" value="104" color="bg-blue-600" />
-              <Card
-                title="Subscription"
-                value="1,839"
-                color="bg-purple-600"
-              />
-              <Card title="Customers" value="9324" color="bg-emerald-600" />
-            </View>
-          </View>
-        </View>
+        <Navbar />
+        <ActiveBar
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
+          tabs={tabs}
+        />
+        {renderContent()}
       </ScrollView>
     </SafeAreaView>
-  );
-}
-
-function Card({ title, value, color }: { title: any; value: any; color: any }) {
-  return (
-    <View className={`p-5 rounded-xl ${color}`}>
-      <Text className="text-white text-lg opacity-80">{title}</Text>
-      <Text className="text-white text-5xl font-bold mt-1">{value}</Text>
-    </View>
   );
 }

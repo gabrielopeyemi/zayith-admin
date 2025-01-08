@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
  * Custom hook to fetch products from an API with authentication headers.
  * @returns {object} - { products, error, loading }
  */
-export const useGetSingleProducts = (productId?: string | null) => {
+export const useGetSingleProducts = (productId?: any) => {
   const [product, setProduct] = useState<any | null>(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
