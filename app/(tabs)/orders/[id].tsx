@@ -6,8 +6,6 @@ import {
   RefreshControl,
 } from "react-native";
 import React, { useState } from "react";
-// import HeaderComponent from "@/components/HeaderComponent";
-// import OrderDetails from "@/components/OrderDetails";
 import OrderDetailsTwo from "@/components/OrderDetailsTwo";
 import { useFetchOrder } from "@/hooks/queries/useFetchOrder";
 import { useLocalSearchParams } from "expo-router";
