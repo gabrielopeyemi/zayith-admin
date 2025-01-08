@@ -1,8 +1,22 @@
 {
-  "rewrites": [
-    {
-      "source": "/:path*",
-      "destination": "/"
-    }
-  ]
-}
+    "builds": [
+      {
+        "src": "package.json",
+        "use": "@vercel/webpack",
+        "config": {
+          "webpack": {
+            "output": {
+              "path": "/out"
+            }
+          }
+        }
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/index.html"
+      }
+    ]
+  }
+  
