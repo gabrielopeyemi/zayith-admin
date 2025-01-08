@@ -93,15 +93,6 @@ export default function Home() {
 
   return (
     <ScrollView className="flex-1 bg-gray-100 px-5">
-      {/* <FlatList
-        data={products}
-        renderItem={renderItem}
-        keyExtractor={(item) => item._id}
-        numColumns={2}
-        columnWrapperStyle={{ justifyContent: "space-between" }}
-        ListFooterComponent={renderFooter}
-        onEndReachedThreshold={0.5}
-      /> */}
       <View className="grid md:grid-cols-3 gap-2 my-4">
         {products.map((product: any) => (
           <Link
