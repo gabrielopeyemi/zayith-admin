@@ -16,14 +16,18 @@ import Feather from "react-native-vector-icons/Feather";
 import Subscriptions from "@/components/Dashboard/Subscriptions";
 import Navbar from "@/components/NavBar/Navbar";
 import ActiveBar from "@/components/ActiveBar/ActiveBar";
+import Orders from "@/api/products/ordersHook";
 
 export default function Dashboard() {
-  // const tabs = [
-  //   { id: 'profile', label: 'Profile' },
-  //   { id: 'password', label: 'Change password' },
-  //   { id: 'specializations', label: 'Specializations' },
-  //   { id: 'permissions', label: 'User roles and permissions' },
-  // ];
+  const {
+    data: orders,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = Orders("storeId");
+
+  console.log({ orders });
 
   const tabs = [
     { id: "Order", label: "Order" },
@@ -35,13 +39,13 @@ export default function Dashboard() {
   const renderContent = () => {
     switch (activeTab) {
       case "Order":
-        return <Order />;
+        return <Order orders={orders} />;
       case "Subscriptions":
         return <Subscriptions />;
       case "Customers":
         return <DashboardThree />;
       default:
-        return <Order />;
+        return <Order orders={orders} />;
     }
   };
   return (

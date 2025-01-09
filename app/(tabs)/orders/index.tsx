@@ -65,7 +65,7 @@ export default function Order() {
       <OrderHeader />
       <View className="flex-1 bg-gray-100 p-4">
         <FlatList
-          data={orders || []} // Ensure it's not undefined or null
+          data={orders?.orders || []} // Ensure it's not undefined or null
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
           ListEmptyComponent={handleEmpty}
